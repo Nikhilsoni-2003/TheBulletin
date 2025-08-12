@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CategorySelector from "../components/CategorySelector";
 import NewsList from "../components/NewsList";
-import { fetchNews } from "../api/newsApi"; // Calls backend endpoint now ✅
+import { fetchNewsByCategory } from "../api/newsApi";
 
 function Home() {
   const [selectedCategory, setSelectedCategory] = useState("Technology");
@@ -15,7 +15,7 @@ function Home() {
       setError(null);
 
       try {
-        const news = await fetchNews(selectedCategory);
+        const news = await fetchNewsByCategory(selectedCategory);
         setArticles(news);
       } catch (err) {
         setError("Failed to load news. Please try again later.");
@@ -34,7 +34,6 @@ function Home() {
         selectedCategory={selectedCategory}
         onSelect={setSelectedCategory}
       />
-
       {loading && <p>Loading news...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {!loading && !error && <NewsList articles={articles} />}
