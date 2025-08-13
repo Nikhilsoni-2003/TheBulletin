@@ -14,8 +14,8 @@ function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchMode, setIsSearchMode] = useState(false);
   const [filters, setFilters] = useState({
-    language: 'en',
-    country: 'in',
+    language: '',
+    country: '',
     category: '',
     timeframe: '',
     sentiment: ''
@@ -62,8 +62,8 @@ function Home() {
 
   const handleClearFilters = () => {
     setFilters({
-      language: 'en',
-      country: 'in',
+      language: '',
+      country: '',
       category: '',
       timeframe: '',
       sentiment: ''

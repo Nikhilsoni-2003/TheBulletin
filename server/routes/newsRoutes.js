@@ -17,7 +17,7 @@ const buildApiUrl = (endpoint, params = {}) => {
   
   // Add filters
   Object.entries(params).forEach(([key, value]) => {
-    if (value) {
+    if (value && value.trim() !== '') {
       url.searchParams.append(key, value);
     }
   });
@@ -52,10 +52,18 @@ router.get("/search", async (req, res) => {
   
   try {
     const params = {
-      q,
-      language: language || 'en',
-      country: country || 'in'
+      q
     };
+    
+    // Only add language if specified and not empty
+    if (language && language.trim() !== '') {
+      params.language = language;
+    }
+    
+    // Only add country if specified and not empty
+    if (country && country.trim() !== '') {
+      params.country = country;
+    }
     
     // Add timeframe if specified
     const fromDate = getTimeframeDate(timeframe);
@@ -63,23 +71,26 @@ router.get("/search", async (req, res) => {
       params.from_date = fromDate;
     }
     
-    // Add sentiment if specified
-    if (sentiment) {
-      params.sentiment = sentiment;
-    }
+    // Note: Sentiment is likely a premium feature - commenting out for now
+    // if (sentiment && sentiment.trim() !== '') {
+    //   params.sentiment = sentiment;
+    // }
     
     const url = buildApiUrl('news', params);
+    console.log('Search API URL:', url); // Debug log
     const response = await fetch(url);
     
     if (!response.ok) {
-      throw new Error(`API request failed: ${response.status}`);
+      const errorText = await response.text();
+      console.error('API Error Response:', errorText);
+      throw new Error(`API request failed: ${response.status} - ${errorText}`);
     }
     
     const data = await response.json();
     res.json(data.results || []);
   } catch (error) {
     console.error("Error searching news:", error);
-    res.status(500).json({ error: "Failed to search news" });
+    res.status(500).json({ error: `Failed to search news: ${error.message}` });
   }
 });
 
@@ -90,10 +101,18 @@ router.get("/category/:category", async (req, res) => {
   
   try {
     const params = {
-      category: category.toLowerCase(),
-      language: language || 'en',
-      country: country || 'in'
+      category: category.toLowerCase()
     };
+    
+    // Only add language if specified and not empty
+    if (language && language.trim() !== '') {
+      params.language = language;
+    }
+    
+    // Only add country if specified and not empty
+    if (country && country.trim() !== '') {
+      params.country = country;
+    }
     
     // Add timeframe if specified
     const fromDate = getTimeframeDate(timeframe);
@@ -101,23 +120,26 @@ router.get("/category/:category", async (req, res) => {
       params.from_date = fromDate;
     }
     
-    // Add sentiment if specified
-    if (sentiment) {
-      params.sentiment = sentiment;
-    }
+    // Note: Sentiment is likely a premium feature - commenting out for now
+    // if (sentiment && sentiment.trim() !== '') {
+    //   params.sentiment = sentiment;
+    // }
     
     const url = buildApiUrl('news', params);
+    console.log('Category API URL:', url); // Debug log
     const response = await fetch(url);
     
     if (!response.ok) {
-      throw new Error(`API request failed: ${response.status}`);
+      const errorText = await response.text();
+      console.error('API Error Response:', errorText);
+      throw new Error(`API request failed: ${response.status} - ${errorText}`);
     }
     
     const data = await response.json();
     res.json(data.results || []);
   } catch (error) {
     console.error("Error fetching news by category:", error);
-    res.status(500).json({ error: "Failed to fetch news by category" });
+    res.status(500).json({ error: `Failed to fetch news by category: ${error.message}` });
   }
 });
 
@@ -127,10 +149,18 @@ router.get("/top-headlines", async (req, res) => {
   
   try {
     const params = {
-      language: language || 'en',
-      country: country || 'in',
       prioritydomain: 'top'
     };
+    
+    // Only add language if specified and not empty
+    if (language && language.trim() !== '') {
+      params.language = language;
+    }
+    
+    // Only add country if specified and not empty
+    if (country && country.trim() !== '') {
+      params.country = country;
+    }
     
     // Add timeframe if specified
     const fromDate = getTimeframeDate(timeframe);
@@ -138,23 +168,26 @@ router.get("/top-headlines", async (req, res) => {
       params.from_date = fromDate;
     }
     
-    // Add sentiment if specified
-    if (sentiment) {
-      params.sentiment = sentiment;
-    }
+    // Note: Sentiment is likely a premium feature - commenting out for now
+    // if (sentiment && sentiment.trim() !== '') {
+    //   params.sentiment = sentiment;
+    // }
     
     const url = buildApiUrl('news', params);
+    console.log('Headlines API URL:', url); // Debug log
     const response = await fetch(url);
     
     if (!response.ok) {
-      throw new Error(`API request failed: ${response.status}`);
+      const errorText = await response.text();
+      console.error('API Error Response:', errorText);
+      throw new Error(`API request failed: ${response.status} - ${errorText}`);
     }
     
     const data = await response.json();
     res.json(data.results || []);
   } catch (error) {
     console.error("Error fetching top headlines:", error);
-    res.status(500).json({ error: "Failed to fetch top headlines" });
+    res.status(500).json({ error: `Failed to fetch top headlines: ${error.message}` });
   }
 });
 
