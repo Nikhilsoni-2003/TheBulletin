@@ -10,6 +10,12 @@ const Header = ({ onSearch, searchQuery, setSearchQuery }) => {
     }
   };
 
+  const handleSearchClick = () => {
+    if (searchQuery.trim()) {
+      onSearch(searchQuery.trim());
+    }
+  };
+
   return (
     <header className="header">
       <div className="header-container">
@@ -38,6 +44,14 @@ const Header = ({ onSearch, searchQuery, setSearchQuery }) => {
               onBlur={() => setIsSearchFocused(false)}
               className="search-input"
             />
+            <button
+              type="button"
+              onClick={handleSearchClick}
+              className="search-button"
+              disabled={!searchQuery.trim()}
+            >
+              Search
+            </button>
           </div>
         </form>
       </div>

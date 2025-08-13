@@ -15,6 +15,7 @@ function Home() {
   const [filters, setFilters] = useState({
     language: 'en',
     country: 'in',
+    category: '',
     timeframe: '',
     sentiment: ''
   });
@@ -41,6 +42,8 @@ function Home() {
     setSelectedCategory(category);
     setIsSearchMode(false);
     setSearchQuery("");
+    // Clear category filter when selecting from nav
+    setFilters(prev => ({ ...prev, category: '' }));
   };
 
   const handleFilterChange = (filterType, value) => {
@@ -48,12 +51,19 @@ function Home() {
       ...prev,
       [filterType]: value
     }));
+    
+    // If category filter is changed, switch to filter mode
+    if (filterType === 'category' && value) {
+      setIsSearchMode(false);
+      setSearchQuery("");
+    }
   };
 
   const handleClearFilters = () => {
     setFilters({
       language: 'en',
       country: 'in',
+      category: '',
       timeframe: '',
       sentiment: ''
     });
@@ -70,7 +80,9 @@ function Home() {
       setError(null);
 
       try {
-        const news = await fetchNewsByCategory(selectedCategory, filters);
+        // If category filter is set, use that instead of selected category
+        const categoryToUse = filters.category || selectedCategory;
+        const news = await fetchNewsByCategory(categoryToUse, filters);
         setArticles(news);
       } catch (err) {
         setError("Failed to load news. Please try again later.");
@@ -81,7 +93,7 @@ function Home() {
     };
 
     getNews();
-  }, [selectedCategory, filters, isSearchMode, searchQuery]);
+  }, [selectedCategory, filters, isSearchMode]);
 
   return (
     <div className="app">

@@ -7,7 +7,8 @@ const NewsCard = ({ article }) => {
     pubDate,
     source_id,
     source_name,
-    source_url
+    source_url,
+    sentiment
   } = article;
 
   const formatDate = (dateString) => {
@@ -40,6 +41,31 @@ const NewsCard = ({ article }) => {
     return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
   };
 
+  const getSentimentColor = (sentiment) => {
+    switch (sentiment?.toLowerCase()) {
+      case 'positive':
+        return '#10b981'; // green
+      case 'negative':
+        return '#ef4444'; // red
+      case 'neutral':
+        return '#6b7280'; // gray
+      default:
+        return '#6b7280';
+    }
+  };
+
+  const getSentimentIcon = (sentiment) => {
+    switch (sentiment?.toLowerCase()) {
+      case 'positive':
+        return '😊';
+      case 'negative':
+        return '😞';
+      case 'neutral':
+        return '😐';
+      default:
+        return '😐';
+    }
+  };
   return (
     <article className="news-card">
       <div className="news-card-image-container">
@@ -76,6 +102,22 @@ const NewsCard = ({ article }) => {
           <p className="news-card-description">
             {truncateText(description, 120)}
           </p>
+        )}
+        
+        {sentiment && (
+          <div className="news-card-sentiment">
+            <span 
+              className="sentiment-tag"
+              style={{ 
+                backgroundColor: `${getSentimentColor(sentiment)}20`,
+                color: getSentimentColor(sentiment),
+                border: `1px solid ${getSentimentColor(sentiment)}40`
+              }}
+            >
+              <span className="sentiment-icon">{getSentimentIcon(sentiment)}</span>
+              {sentiment.charAt(0).toUpperCase() + sentiment.slice(1)}
+            </span>
+          </div>
         )}
         
         <a

@@ -1,8 +1,29 @@
 import { useState } from 'react';
 
 const FilterControls = ({ filters, onFilterChange, onClearFilters }) => {
-  const [showAllCategories, setShowAllCategories] = useState(false);
+  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
+
+  const availableCategories = [
+    { value: '', label: 'All categories' },
+    { value: 'business', label: 'Business' },
+    { value: 'crime', label: 'Crime' },
+    { value: 'domestic', label: 'Domestic' },
+    { value: 'education', label: 'Education' },
+    { value: 'entertainment', label: 'Entertainment' },
+    { value: 'environment', label: 'Environment' },
+    { value: 'food', label: 'Food' },
+    { value: 'health', label: 'Health' },
+    { value: 'lifestyle', label: 'Lifestyle' },
+    { value: 'other', label: 'Other' },
+    { value: 'politics', label: 'Politics' },
+    { value: 'science', label: 'Science' },
+    { value: 'sports', label: 'Sports' },
+    { value: 'technology', label: 'Technology' },
+    { value: 'top', label: 'Top Stories' },
+    { value: 'tourism', label: 'Tourism' },
+    { value: 'world', label: 'World' }
+  ];
 
   const filterOptions = {
     language: [
@@ -47,7 +68,13 @@ const FilterControls = ({ filters, onFilterChange, onClearFilters }) => {
     onFilterChange(filterType, value);
   };
 
+  const handleCategoryChange = (category) => {
+    onFilterChange('category', category);
+    setShowCategoryDropdown(false);
+  };
+
   const activeFiltersCount = Object.values(filters).filter(value => value && value !== '').length;
+  const selectedCategoryLabel = availableCategories.find(cat => cat.value === filters.category)?.label || 'All categories';
 
   return (
     <div className="filter-controls">
@@ -56,13 +83,27 @@ const FilterControls = ({ filters, onFilterChange, onClearFilters }) => {
           <div className="dropdown-container">
             <button 
               className="dropdown-btn"
-              onClick={() => setShowAllCategories(!showAllCategories)}
+              onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
             >
-              All categories
-              <svg className={`dropdown-arrow ${showAllCategories ? 'rotated' : ''}`} width="16" height="16" viewBox="0 0 24 24" fill="none">
+              {selectedCategoryLabel}
+              <svg className={`dropdown-arrow ${showCategoryDropdown ? 'rotated' : ''}`} width="16" height="16" viewBox="0 0 24 24" fill="none">
                 <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
+            
+            {showCategoryDropdown && (
+              <div className="category-dropdown">
+                {availableCategories.map(category => (
+                  <button
+                    key={category.value}
+                    onClick={() => handleCategoryChange(category.value)}
+                    className={`category-dropdown-item ${filters.category === category.value ? 'active' : ''}`}
+                  >
+                    {category.label}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="dropdown-container">
