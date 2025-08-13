@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import CategoryNav from "../components/CategoryNav";
 import FilterControls from "../components/FilterControls";
 import NewsGrid from "../components/NewsGrid";
+import Footer from "../components/Footer";
 import { fetchNewsByCategory, searchNews } from "../api/newsApi";
 
 function Home() {
@@ -121,6 +122,8 @@ function Home() {
           error={error}
         />
       </main>
+      
+      <Footer />
     </div>
   );
 }
