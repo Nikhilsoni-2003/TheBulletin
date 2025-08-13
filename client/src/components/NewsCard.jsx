@@ -104,22 +104,6 @@ const NewsCard = ({ article }) => {
           </p>
         )}
         
-        {sentiment && (
-          <div className="news-card-sentiment">
-            <span 
-              className="sentiment-tag"
-              style={{ 
-                backgroundColor: `${getSentimentColor(sentiment)}20`,
-                color: getSentimentColor(sentiment),
-                border: `1px solid ${getSentimentColor(sentiment)}40`
-              }}
-            >
-              <span className="sentiment-icon">{getSentimentIcon(sentiment)}</span>
-              {sentiment.charAt(0).toUpperCase() + sentiment.slice(1)}
-            </span>
-          </div>
-        )}
-        
         <a
           href={link}
           target="_blank"
