@@ -23,6 +23,13 @@
   --gradient-card: linear-gradient(145deg, #1e1e1e 0%, #2a2a2a 100%);
 }
 
+@font-face {
+  font-family: 'Chomsky';
+  src: url('/fonts/Chomsky.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   margin: 0;
   padding: 0;

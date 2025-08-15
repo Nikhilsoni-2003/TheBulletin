@@ -202,34 +202,6 @@ const FilterControls = ({ filters, onFilterChange, onClearFilters }) => {
                   </select>
                 </div>
 
-                <div className="filter-section">
-                  <label className="filter-label">Time</label>
-                  <select 
-                    value={filters.timeframe || ''} 
-                    onChange={(e) => handleFilterChange('timeframe', e.target.value)}
-                    className="filter-select"
-                  >
-                    <option value="">All time</option>
-                    {filterOptions.timeframe.map(option => (
-                      <option key={option.value} value={option.value}>{option.label}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Sentiment filter temporarily disabled - likely premium feature */}
-                {/* <div className="filter-section">
-                  <label className="filter-label">Sentiment</label>
-                  <select 
-                    value={filters.sentiment || ''} 
-                    onChange={(e) => handleFilterChange('sentiment', e.target.value)}
-                    className="filter-select"
-                  >
-                    <option value="">All sentiments</option>
-                    {filterOptions.sentiment.map(option => (
-                      <option key={option.value} value={option.value}>{option.label}</option>
-                    ))}
-                  </select>
-                </div> */}
 
                 {activeFiltersCount > 0 && (
                   <button className="clear-filters-btn" onClick={onClearFilters}>

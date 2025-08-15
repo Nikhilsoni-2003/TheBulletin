@@ -5,7 +5,7 @@ const NewsGrid = ({ articles, loading, error }) => {
     return (
       <div className="loading-container">
         <div className="loading-spinner"></div>
-        <p className="loading-text">Curating the latest news...</p>
+        <p className="loading-text">Loading news articles...</p>
       </div>
     );
   }
@@ -13,11 +13,11 @@ const NewsGrid = ({ articles, loading, error }) => {
   if (error) {
     return (
       <div className="error-container">
-        <div className="error-icon">⚠️</div>
-        <h3 className="error-title">Something went wrong</h3>
-        <p className="error-text">{error}</p>
+        <h3 className="error-title">Error</h3>
+        <p className="error-text">An error occurred while fetching news articles. Please try again later.</p>
+        <p className="error-subtext">The system is attempting to resolve the issue. Please try again shortly.</p>
         <button className="retry-btn" onClick={() => window.location.reload()}>
-          Try again
+          Retry
         </button>
       </div>
     );
@@ -26,9 +26,8 @@ const NewsGrid = ({ articles, loading, error }) => {
   if (!articles || articles.length === 0) {
     return (
       <div className="empty-container">
-        <div className="empty-icon">📰</div>
-        <h3 className="empty-title">No articles found</h3>
-        <p className="empty-text">Try adjusting your search terms or filters to find more content</p>
+        <h3 className="empty-title">No Articles Available</h3>
+        <p className="empty-text">Please adjust your search terms or filters to find relevant content.</p>
       </div>
     );
   }
