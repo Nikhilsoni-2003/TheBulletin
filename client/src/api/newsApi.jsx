@@ -1,4 +1,4 @@
-const API_ORIGIN = import.meta.env.VITE_API_ORIGIN || ""; 
+const API_ORIGIN = import.meta.env.VITE_API_BASE || ""; 
 const API_BASE_URL = `${API_ORIGIN}/api/news`;
 
 // Helper: create query string from filters
