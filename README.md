@@ -8,7 +8,7 @@
 
 **Bulletin** is a modern, responsive news curation website that fetches and categorizes news from top platforms. It provides users with a clean interface to explore news across different categories like Technology, Sports, Politics, and more.  
 
-**Live Demo:** [https://thebulletin-boh6.vercel.app](https://thebulletin-boh6.vercel.app)
+**Live Demo:** [https://the-bulletin-boh6.vercel.app/](https://the-bulletin-boh6.vercel.app/)
 
 ---
 
