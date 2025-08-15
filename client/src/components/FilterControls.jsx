@@ -111,9 +111,11 @@ const FilterControls = ({ filters, onFilterChange, onClearFilters }) => {
       { value: '30d', label: 'Last 30 days' }
     ],
     sentiment: [
-      { value: 'positive', label: 'Positive' },
-      { value: 'neutral', label: 'Neutral' },
-      { value: 'negative', label: 'Negative' }
+      // Sentiment analysis is typically a premium feature
+      // Commenting out until confirmed it works with your API tier
+      // { value: 'positive', label: 'Positive' },
+      // { value: 'neutral', label: 'Neutral' },
+      // { value: 'negative', label: 'Negative' }
     ]
   };
 
@@ -214,7 +216,8 @@ const FilterControls = ({ filters, onFilterChange, onClearFilters }) => {
                   </select>
                 </div>
 
-                <div className="filter-section">
+                {/* Sentiment filter temporarily disabled - likely premium feature */}
+                {/* <div className="filter-section">
                   <label className="filter-label">Sentiment</label>
                   <select 
                     value={filters.sentiment || ''} 
@@ -226,7 +229,7 @@ const FilterControls = ({ filters, onFilterChange, onClearFilters }) => {
                       <option key={option.value} value={option.value}>{option.label}</option>
                     ))}
                   </select>
-                </div>
+                </div> */}
 
                 {activeFiltersCount > 0 && (
                   <button className="clear-filters-btn" onClick={onClearFilters}>
