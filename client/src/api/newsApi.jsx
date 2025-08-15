@@ -1,25 +1,19 @@
 const API_ORIGIN = import.meta.env.VITE_API_ORIGIN || ""; 
 const API_BASE_URL = `${API_ORIGIN}/api/news`;
 
-// Fetch news by category with filters
+// Helper: create query string from filters
+function createQueryString(filters) {
+  const params = new URLSearchParams(filters);
+  return params.toString() ? `?${params.toString()}` : "";
+}
+
+// Fetch news by category
 export async function fetchNewsByCategory(category, filters = {}) {
   try {
-    const params = new URLSearchParams();
-    if (filters.language) params.append("language", filters.language);
-    if (filters.country) params.append("country", filters.country);
-    if (filters.timeframe) params.append("timeframe", filters.timeframe);
-    if (filters.sentiment) params.append("sentiment", filters.sentiment);
-
-    const queryString = params.toString();
-    const url = `${API_BASE_URL}/category/${category}${
-      queryString ? `?${queryString}` : ""
-    }`;
-
+    const url = `${API_BASE_URL}/category/${category}${createQueryString(filters)}`;
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(
-        `Failed to fetch news for category ${category}: ${response.status}`
-      );
+      throw new Error(`Failed to fetch news for category ${category}: ${response.status}`);
     }
     return await response.json();
   } catch (error) {
@@ -31,15 +25,7 @@ export async function fetchNewsByCategory(category, filters = {}) {
 // Search news articles
 export async function searchNews(query, filters = {}) {
   try {
-    const params = new URLSearchParams();
-    params.append("q", query);
-    if (filters.language) params.append("language", filters.language);
-    if (filters.country) params.append("country", filters.country);
-    if (filters.timeframe) params.append("timeframe", filters.timeframe);
-    if (filters.sentiment) params.append("sentiment", filters.sentiment);
-
-    const url = `${API_BASE_URL}/search?${params.toString()}`;
-
+    const url = `${API_BASE_URL}/search${createQueryString({ q: query, ...filters })}`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Failed to search news: ${response.status}`);
@@ -51,19 +37,10 @@ export async function searchNews(query, filters = {}) {
   }
 }
 
-// Fetch top headlines with filters
+// Fetch top headlines
 export async function fetchTopHeadlines(filters = {}) {
   try {
-    const params = new URLSearchParams();
-    if (filters.language) params.append("language", filters.language);
-    if (filters.country) params.append("country", filters.country);
-    if (filters.timeframe) params.append("timeframe", filters.timeframe);
-    if (filters.sentiment) params.append("sentiment", filters.sentiment);
-
-    const url = `${API_BASE_URL}/top-headlines${
-      params.toString() ? `?${params.toString()}` : ""
-    }`;
-
+    const url = `${API_BASE_URL}/top-headlines${createQueryString(filters)}`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Failed to fetch top headlines: ${response.status}`);
