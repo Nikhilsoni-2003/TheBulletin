@@ -1,4 +1,5 @@
-const API_BASE_URL = "/api/news"; // Proxying to backend
+const API_ORIGIN = import.meta.env.VITE_API_ORIGIN || ""; 
+const API_BASE_URL = `${API_ORIGIN}/api/news`;
 
 // Fetch news by category with filters
 export async function fetchNewsByCategory(category, filters = {}) {

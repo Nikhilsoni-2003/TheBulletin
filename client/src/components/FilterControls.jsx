@@ -104,18 +104,6 @@ const FilterControls = ({ filters, onFilterChange, onClearFilters }) => {
       { value: 'us', label: 'United States' },
       { value: 've', label: 'Venezuela' },
       { value: 'za', label: 'South Africa' }
-    ],
-    timeframe: [
-      { value: '24h', label: 'Last 24 hours' },
-      { value: '7d', label: 'Last 7 days' },
-      { value: '30d', label: 'Last 30 days' }
-    ],
-    sentiment: [
-      // Sentiment analysis is typically a premium feature
-      // Commenting out until confirmed it works with your API tier
-      // { value: 'positive', label: 'Positive' },
-      // { value: 'neutral', label: 'Neutral' },
-      // { value: 'negative', label: 'Negative' }
     ]
   };
 

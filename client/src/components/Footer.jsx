@@ -3,7 +3,6 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         
-        {/* Left Side - Logo + Description */}
         <div className="footer-left">
           <div className="footer-logo">
                         <img height="28" src="/logo.png" alt="logo" />
@@ -17,7 +16,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Right Side - Links */}
         <div className="footer-right">
           <ul className="footer-links">
             <li><a href="#">Privacy Policy</a></li>
@@ -29,7 +27,6 @@ const Footer = () => {
 
       </div>
 
-      {/* Bottom Row */}
       <div className="footer-bottom">
         <p>© 2025 News Curator. All rights reserved.</p>
         <p>Powered by NewsData.io</p>
